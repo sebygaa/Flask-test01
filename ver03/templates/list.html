@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item List</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>Item List</h1>
+        <a href="/write">Write New Item</a>
+    </header>
+    <main>
+        <ul>
+            {% for post in posts %}
+            <li>
+                <a href="/item/{{ loop.index0 }}">{{ post.title }}</a>
+                <p>Written on {{ post.timestamp }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </main>
+    <footer>
+        <p>&copy; 2025 Item Forum</p>
+    </footer>
+</body>
+</html>

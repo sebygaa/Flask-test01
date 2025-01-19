@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item List</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>게시판 만들기 연습</h1>
+        <a href="/write">Write New Item</a>
+    </header>
+    <main>
+        <!-- Search Functionality -->
+        <form action="/search" method="get">
+            <input type="text" name="query" placeholder="Search by title, content, or writer" value="{{ request.args.get('query', '') }}">
+            <button type="submit">Search</button>
+        </form>
+
+        <!-- List of Items -->
+        <ul>
+            {% for post in posts %}
+            <li>
+                <a href="/item/{{ loop.index0 }}">{{ post.title }}</a>
+                <p>Written by {{ post.username }} on {{ post.timestamp }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <!-- Pagination Buttons -->
+        {% if total_pages > 1 %}
+        <nav>
+            {% for i in range(1, total_pages + 1) %}
+                <a href="/?page={{ i }}" {% if i == page %}style="font-weight: bold;"{% endif %}>Page {{ i }}</a>
+            {% endfor %}
+        </nav>
+        {% endif %}
+    </main>
+    <footer>
+        <p>&copy; 2025 Item Forum</p>
+    </footer>
+</body>
+</html>
