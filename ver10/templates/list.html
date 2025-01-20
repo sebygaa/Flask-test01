@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete AI Model List</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>Complete AI Model List</h1>
+        <p> It may take a few hours to train the model. Please be patient. </p>
+        <a href="/write" class="button light-green">Write New Item</a>
+    </header>
+    <main>
+        <!-- Search Functionality -->
+        <form action="/search" method="get">
+            <input type="text" name="query" placeholder="Search by title, content, or writer" value="{{ request.args.get('query', '') }}">
+            <button type="submit" class="button green">Search</button>
+        </form>
+
+        <!-- List of Items -->
+        <ul>
+            {% for post in posts %}
+            <li>
+                <a href="/item/{{ loop.index0 }}">{{ post.title }}</a>
+                <p>Written by {{ post.username }} on {{ post.timestamp }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <!-- Pagination Buttons -->
+        {% if total_pages > 1 %}
+        <nav>
+            {% for i in range(1, total_pages + 1) %}
+                <a href="/?page={{ i }}" class="button pastel-blue" {% if i == page %}style="font-weight: bold;"{% endif %}>Page {{ i }}</a>
+            {% endfor %}
+        </nav>
+        {% endif %}
+    </main>
+
+    <footer>
+        <div>
+            <img src="/static/lowCbanner.png" alt="Low Carbon Banner" style="width: 17%;">
+        </div>
+        <p>&copy; 2025 RIS Low-carbon Green Energy Project 
+        </br>Designed by Prof. Ga of University of Ulsan </p>
+    </footer>
+    
+</body>
+</html>

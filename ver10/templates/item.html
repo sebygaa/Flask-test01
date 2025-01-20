@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.title }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>{{ post.title }}</h1>
+        <a href="/" class="button pastel-blue">Back to List</a>
+    </header>
+    <main>
+        <article>
+            <h2>By {{ post.username }}</h2>
+            <p>{{ post.content }}</p>
+            <p><em>Written on {{ post.timestamp }}</em></p>
+
+            <!-- Image Gallery -->
+            {% if files and files|length > 0 %}
+            <div class="image-gallery">
+                {% for file in files %}
+                {% if file.endswith(('.png', '.jpg', '.jpeg', '.gif')) %}
+                <div class="image-container">
+                    <img src="/uploads/{{ file }}" alt="Image for {{ post.title }}">
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% else %}
+            <p>No images uploaded for this post.</p>
+            {% endif %}
+
+            <!-- Download Section -->
+            {% if files %}
+            <div>
+                <h3>Attached Files:</h3>
+                <ul>
+                    {% for file in files %}
+                    <li><a href="/uploads/{{ file }}" download>{{ file.split('/')[-1] }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% else %}
+            <p>No files uploaded for this post.</p>
+            {% endif %}
+        </article>
+
+        <!-- Delete Section -->
+        <form action="" method="POST">
+            <input type="password" name="password" placeholder="Enter password to delete" required>
+            <button type="submit" class="button red">Delete</button>
+        </form>
+
+        {% if error %}
+        <p style="color: red;">{{ error }}</p>
+        {% endif %}
+    </main>
+
+    <footer>
+        <div>
+            <img src="/static/lowCbanner.png" alt="Low Carbon Banner" style="width: 12%;">
+        </div>
+        <p>&copy; 2025 RIS Low-carbon Green Energy Project 
+        </br>Designed by Prof. Ga of University of Ulsan </p>
+    </footer>
+</body>
+</html>
