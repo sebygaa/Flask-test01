@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.title }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>{{ post.title }}</h1>
+        <a href="/">Back to List</a>
+    </header>
+    <main>
+        <article>
+            <h2>By {{ post.username }}</h2>
+            <p>{{ post.content }}</p>
+            <p><em>Written on {{ post.timestamp }}</em></p>
+        </article>
+
+        <!-- Delete Section -->
+        <form action="" method="POST">
+            <input type="password" name="password" placeholder="Enter password to delete" required>
+            <button type="submit" style="color: white; background-color: red; border: none; padding: 10px 15px; border-radius: 5px;">Delete</button>
+        </form>
+
+        {% if error %}
+        <p style="color: red;">{{ error }}</p>
+        {% endif %}
+    </main>
+    <footer>
+        <p>&copy; 2025 Item Forum</p>
+    </footer>
+</body>
+</html>
