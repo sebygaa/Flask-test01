@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ page_title }}</title>
+  <style>
+    /* Basic styling for layout */
+    body { margin: 0; font-family: Arial, sans-serif; }
+    .sidebar {
+      width: 200px;
+      background: #f0f0f0;
+      position: fixed; top: 0; bottom: 0; left: 0;
+      overflow: auto;
+      padding-top: 20px;
+    }
+    .sidebar ul { list-style: none; margin: 0; padding: 0; }
+    .sidebar li { margin: 0; padding: 0; }
+    .sidebar a {
+      display: block; padding: 8px 16px;
+      text-decoration: none; color: #000;
+    }
+    .sidebar a.active, .sidebar a:hover {
+      background: #ddd; font-weight: bold;
+    }
+    .content {
+      margin-left: 200px; /* leave space for sidebar */
+      padding: 20px;
+    }
+    .content h2 { margin-top: 0; }
+    .form-group { margin-bottom: 10px; }
+    .form-group label {
+      display: block; font-weight: bold; margin-bottom: 5px;
+    }
+    .form-group input {
+      width: 300px; padding: 5px;
+    }
+    .result { margin-top: 15px; }
+    .result label { font-weight: bold; margin-right: 5px; }
+    .result input {
+      width: 100px; padding: 5px; font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar Menu -->
+  <div class="sidebar">
+    <ul>
+      <li><a href="{{ url_for('catalyst') }}" class="{% if active=='catalyst' %}active{% endif %}">Catalyst param. est.</a></li>
+      <li><a href="{{ url_for('membrane') }}" class="{% if active=='membrane' %}active{% endif %}">Membrane param. est.</a></li>
+      <li><a href="{{ url_for('reactor') }}" class="{% if active=='reactor' %}active{% endif %}">Reactor Performance</a></li>
+      <li><a href="{{ url_for('module') }}" class="{% if active=='module' %}active{% endif %}">Membrane Module Performance</a></li>
+      <li><a href="{{ url_for('supplychain') }}" class="{% if active=='supplychain' %}active{% endif %}">Green H2 Supply Chain</a></li>
+      <li><a href="{{ url_for('optimization') }}" class="{% if active=='optimization' %}active{% endif %}">Process Optimization</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content Area -->
+  <div class="content">
+    <h2>{{ page_title }}</h2>
+    <form method="POST">
+      <div class="form-group">
+        <label for="input1">Input 1:</label>
+        <input type="number" id="input1" name="input1" value="{{ values[0] }}">
+      </div>
+      <div class="form-group">
+        <label for="input2">Input 2:</label>
+        <input type="number" id="input2" name="input2" value="{{ values[1] }}">
+      </div>
+      <div class="form-group">
+        <label for="input3">Input 3:</label>
+        <input type="number" id="input3" name="input3" value="{{ values[2] }}">
+      </div>
+      <div class="form-group">
+        <label for="input4">Input 4:</label>
+        <input type="number" id="input4" name="input4" value="{{ values[3] }}">
+      </div>
+      <div class="form-group">
+        <label for="input5">Input 5:</label>
+        <input type="number" id="input5" name="input5" value="{{ values[4] }}">
+      </div>
+      <div class="form-group">
+        <label for="input6">Input 6:</label>
+        <input type="number" id="input6" name="input6" value="{{ values[5] }}">
+      </div>
+      <button type="submit">Run</button>
+    </form>
+    <div class="result">
+      <label for="sum">Result:</label>
+      <input type="text" id="sum" value="{% if result is not none %}{{ result }}{% endif %}" readonly>
+    </div>
+  </div>
+</body>
+</html>
